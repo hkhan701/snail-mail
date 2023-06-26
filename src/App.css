@@ -177,6 +177,10 @@ form .input-text:valid{
   border-radius: 10px;
 }
 
+.password-field {
+  position: relative;
+}
+
 /* FILE INPUT */
 
 form label{
