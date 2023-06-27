@@ -4,6 +4,7 @@ import AddAvatar from "../img/addAvatar.png";
 import HideAndShowPassword from "../HideAndShowPassword";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getAuth } from "firebase/auth";
+import auth from "../firebase";
 
 const Register = () => {
     const auth = getAuth();
