@@ -1,32 +1,29 @@
 import React from "react";
+import { useState } from "react";
 import AddAvatar from "../img/addAvatar.png";
 import HideAndShowPassword from "../HideAndShowPassword";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import auth from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const Register = () => {
-
-
-    const handleSubmit = (e) => {
+    const auth = getAuth();
+    const [error, setError] = useState(false); // error state
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const username = e.target[0].value;
         const email = e.target[1].value;
         const password = e.target[2].value;
         const confirmPassword = e.target[3].value;
         const avatar = e.target[4].value;
+
+        try {
+            const res = await createUserWithEmailAndPassword(auth, email, password);
+        } catch (error) {
+            setError(true);
+        }
+        
     }
 
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            // ...
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
-        });
 
     return (
         <div className="form-container">
@@ -44,8 +41,9 @@ const Register = () => {
                     </label>
 
                     <button className = "btn-style" type="submit">Start Sending Mail Now </button>
-
+                    {error && <span style={{color: "red", marginTop: "10px"}}>Something went wrong!</span>}
                     <p>Already have an account? <span>Login here</span></p>
+
                 </form>
             </div>
         </div>

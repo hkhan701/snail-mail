@@ -1,4 +1,8 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+
 const firebaseConfig = {
   apiKey: "AIzaSyD7Nz1boyazFLwtS8rnf27ROIbnL5w_SvI",
   authDomain: "snailmail-33588.firebaseapp.com",
@@ -10,4 +14,3 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-export const auth = getAuth();
