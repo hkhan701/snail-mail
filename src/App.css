@@ -139,7 +139,6 @@ border-radius: 10px;
 }
 
 .form-wrapper{
-  font-family: var(--font-family-default);
   position: relative;
   min-width: 430px;
   width: 100%;
@@ -150,6 +149,7 @@ border-radius: 10px;
 }
 
 form {
+  font-family: var(--font-family-default);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -268,9 +268,6 @@ header {
   max-height: 100%;
   padding: 0 2rem;
   gap: 1rem;
-
-
-  /* background: var(--color-grey); */
 }
 
 .message-title {
@@ -300,4 +297,10 @@ header {
   background-color: var(--color-grey);
   border-radius: 1rem;
   border: 2px solid var(--color-black);
+}
+
+/* SEARCH USER PAGE */
+
+.search-input {
+    margin-top: 1rem;
 }

@@ -78,14 +78,14 @@ const Register = () => {
 
     return (
         <>
-        <MainTitle></MainTitle>
+        <MainTitle/>
         <div className="form-container">
             <div className="form-wrapper">
                 <form onSubmit={handleSubmit}>
                     <input className="input-text" type="text" placeholder="Enter your username" required />
                     <input className="input-text" type="email" placeholder="Enter your email" required />
-                    <HideAndShowPassword placeholder="Enter your password"></HideAndShowPassword>
-                    <HideAndShowPassword placeholder="Confirm your password"></HideAndShowPassword>
+                    <HideAndShowPassword placeholder="Enter your password"/>
+                    <HideAndShowPassword placeholder="Confirm your password"/>
 
                     <input style={{ display: "none" }} type="file" id="file" className="file-input" />
                     <label htmlFor="file">
