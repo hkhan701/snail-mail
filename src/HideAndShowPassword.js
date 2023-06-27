@@ -9,7 +9,7 @@ function HideAndShowPassword(props){
     return(
         <div className="password-field">
             <input className="input-text" type={show?"text":"password"} placeholder={props.placeholder} required/>
-            <i class={show?"far fa-eye":"fa fa-eye-slash"} id="togglePassword" style={{marginLeft: "-30px"}} onClick={handleShow}>  </i>
+            <i className={show?"far fa-eye":"fa fa-eye-slash"} id="togglePassword" style={{marginLeft: "-30px"}} onClick={handleShow}>  </i>
         </div>      
     );
 }
