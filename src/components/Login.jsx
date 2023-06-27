@@ -1,4 +1,5 @@
 import React from "react";
+import HideAndShowPassword from "../HideAndShowPassword";
 
 const Login = () => {
     return (
@@ -6,7 +7,7 @@ const Login = () => {
             <div className="form-wrapper">
                 <form>
                     <input className="input-text" type="text" placeholder="Enter your username" required/>
-                    <input className="input-text" type="password" placeholder="Enter your password" required/>
+                    <HideAndShowPassword placeholder = "Enter your password"></HideAndShowPassword>
 
                     <button className = "btn-style" type="submit">Login</button>
 

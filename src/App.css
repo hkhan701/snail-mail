@@ -227,3 +227,25 @@ form p span {
       gap: 2rem;
   }
 }
+
+/* NAVBAR */
+
+header {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.navbar-wrapper{
+  display: flex;
+  width: 95vw;
+  max-width: 50rem;
+  min-height: 7rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
