@@ -3,18 +3,36 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import SendMail from "./components/SendMail";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
+import { useContext } from "react";
+
 
 function App() {
+
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
+
+  // If the user is not logged in, redirect to the login page
+  const ProtectedRoute = ({ children }) => {
+   if(!currentUser) {
+      return <Navigate to="/login" />
+    }
+      return children;
+  };
+
   return (
-    <Register />
-    // <BrowserRouter>
-    //   <Routes>
-    //     <Route path="/" element={<Home />} />
-    //     <Route path="login" element={<Login />} />
-    //     <Route path="register" element={<Register />} />
-    //   </Routes>
-    // </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/"/>
+
+          <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+
+        <Route/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

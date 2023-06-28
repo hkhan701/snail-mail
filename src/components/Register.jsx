@@ -7,10 +7,12 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth, storage, db} from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {doc, setDoc} from 'firebase/firestore';
+import { useNavigate, Link} from "react-router-dom";
 
 const Register = () => {
 
     const [error, setError] = useState(false); // error state
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,8 +22,6 @@ const Register = () => {
         const password = e.target[2].value;
         const confirmPassword = e.target[3].value;
         const avatar = e.target[4].files[0];
-
-        console.log(displayName, email, password, confirmPassword, avatar);
 
         try {
             const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -60,6 +60,7 @@ const Register = () => {
                         });
 
                         await setDoc(doc(db, "userChats", res.user.uid), {});
+                        navigate('/home');
 
                     })
                     .catch((error) => {
@@ -96,7 +97,7 @@ const Register = () => {
 
                     <button className="btn-style" type="submit">Start Sending Mail Now </button>
                     {error && <span style={{ color: "red", marginTop: "10px" }}>Something went wrong!</span>}
-                    <p>Already have an account? <span>Login here</span></p>
+                    <p>Already have an account? <Link to = "/login" className="link">Login here</Link></p>
 
                 </form>
             </div>

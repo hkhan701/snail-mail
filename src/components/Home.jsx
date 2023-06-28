@@ -8,43 +8,43 @@ const Home = () => {
         </Navbar>
         <div className="message-container">
 
-            <div class="message-wrapper">
+            <div className="message-wrapper">
 
-                <div class="messages-header">
-                    <h1 class = "message-title title-style">you have mail ()</h1>
+                <div className="messages-header">
+                    <h1 className = "message-title title-style">you have mail ()</h1>
                 </div>
 
-                <div class="message-gallery">
-                    <div class="message-box">
+                <div className="message-gallery">
+                    <div className="message-box">
 
                     </div>
-                    <div class="message-box">
+                    <div className="message-box">
                         
                     </div>
-                    <div class="message-box">
+                    <div className="message-box">
                         
                     </div>
-                    <div class="message-box">
+                    <div className="message-box">
                         
                     </div>
-                    <div class="message-box">
+                    <div className="message-box">
                         
                     </div>
-                    <div class="message-box">
+                    <div className="message-box">
                         
                     </div>
-                    <div class="message-box">
+                    <div className="message-box">
                         
                     </div>
-                    <div class="message-box">
+                    <div className="message-box">
                         
                     </div>
-                    <div class="message-box">
+                    <div className="message-box">
                         
                     </div>
                 </div>
 
-                <button class = "btn-style">Send Mail</button>
+                <button className = "btn-style">Send Mail</button>
             </div>
         </div>
         </>

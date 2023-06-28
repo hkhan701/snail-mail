@@ -117,9 +117,13 @@ footer {
   width: 100%;
 }
 
-footer img {
+footer a {
   max-height: 3.5rem;
   margin: 1.5rem auto;
+}
+
+footer img {
+  max-height: 3.5rem;
 }
 
 /* MAIN TITLE */
@@ -157,7 +161,6 @@ footer img {
 }
 
 .form-wrapper{
-  /* position: relative; */
   width: 95vw;
   max-width: 40rem;
   background: var(--color-grey);
@@ -223,7 +226,7 @@ form p {
   margin-top: 0.5rem;
 }
 
-form p span {
+.link {
   color: var(--color-green);
 }
 
