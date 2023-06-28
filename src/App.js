@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <SendMail />
+    <Register />
     // <BrowserRouter>
     //   <Routes>
     //     <Route path="/" element={<Home />} />

@@ -12,7 +12,6 @@ const SendMail = () => {
         if (searchTerm.trim() !== "") {
             console.log(searchTerm);
         }
-        
     };
 
     return (
@@ -23,7 +22,7 @@ const SendMail = () => {
             <div className="message-wrapper message-box">
                 <form onSubmit={handleSubmit}>
                     <div className="password-field">
-                        <input  ref = {searchTermRef} className="input-text search-input" type="text" placeholder="Find a user" required/>
+                        <input  ref = {searchTermRef} className="search-input input-text" type="text" placeholder="Find a user" required/>
                         <i className="fa-solid fa-check" style={{color: "#020c17", marginLeft: "-30px", cursor: "pointer"}} onClick={handleSubmit}></i>
                     </div>
                 </form>

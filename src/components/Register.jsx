@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddAvatar from "../img/addAvatar.png";
 import MainTitle from "../components/MainTitle";
+import Footer from "../components/Footer";
 import HideAndShowPassword from "../HideAndShowPassword";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth, storage, db} from '../firebase';
@@ -100,6 +101,7 @@ const Register = () => {
                 </form>
             </div>
         </div>
+        <Footer/>
         </>
     );
 }
