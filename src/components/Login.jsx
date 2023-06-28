@@ -34,7 +34,7 @@ const Login = () => {
             <div className="form-wrapper">
                 <form onSubmit={handleSubmit}>
 
-                    <input className="input-text" type="text" placeholder="Enter your username" required/>
+                    <input className="input-text" type="text" placeholder="Enter your email" required/>
                     <HideAndShowPassword placeholder = "Enter your password"></HideAndShowPassword>
 
                     <button className = "btn-style" type="submit">Login</button>

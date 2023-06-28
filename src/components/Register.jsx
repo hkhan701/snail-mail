@@ -12,6 +12,7 @@ import { useNavigate, Link} from "react-router-dom";
 const Register = () => {
 
     const [error, setError] = useState(false); // error state
+    const [passwordMatchError, setPasswordMatchError] = useState(false); // error state
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -23,11 +24,16 @@ const Register = () => {
         const confirmPassword = e.target[3].value;
         const avatar = e.target[4].files[0];
 
+        if (password !== confirmPassword) {
+            setPasswordMatchError(true);
+            return;
+        }
+
         try {
             const res = await createUserWithEmailAndPassword(auth, email, password);
 
             //Create a unique image name
-            const date = new Date().getTime();
+            // const date = new Date().getTime();
             const storageRef = ref(storage, displayName);
             const uploadTask = uploadBytesResumable(storageRef, avatar);
 
@@ -45,10 +51,11 @@ const Register = () => {
                   // Upload completed successfully, now get the download URL
                   getDownloadURL(uploadTask.snapshot.ref)
                     .then(async (downloadURL) => {
+
                         // Update profile
                         await updateProfile(res.user, {
                             displayName,
-                            photoURL: downloadURL,
+                            photoURL: avatar ? downloadURL : null, // if avatar is uploaded, set photoURL to downloadURL, else set to null
                         });
                 
                         // Add user to Firestore
@@ -56,7 +63,7 @@ const Register = () => {
                             uid: res.user.uid,
                             displayName,
                             email,
-                            photoURL: downloadURL,
+                            photoURL: avatar ? downloadURL : null,
                         });
 
                         await setDoc(doc(db, "userChats", res.user.uid), {});
@@ -97,6 +104,7 @@ const Register = () => {
 
                     <button className="btn-style" type="submit">Start Sending Mail Now </button>
                     {error && <span style={{ color: "red", marginTop: "10px" }}>Something went wrong!</span>}
+                    {passwordMatchError && <span style={{ color: "red", marginTop: "10px" }}>Passwords do not match!</span>}
                     <p>Already have an account? <Link to = "/login" className="link">Login here</Link></p>
 
                 </form>
