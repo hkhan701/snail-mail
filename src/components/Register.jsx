@@ -60,7 +60,7 @@ const Register = () => {
                         });
 
                         await setDoc(doc(db, "userChats", res.user.uid), {});
-                        navigate('/home');
+                        navigate('/');
 
                     })
                     .catch((error) => {

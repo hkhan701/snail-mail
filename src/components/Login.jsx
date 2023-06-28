@@ -20,7 +20,7 @@ const Login = () => {
         try {
 
             await signInWithEmailAndPassword(auth, email, password);
-            navigate("/userchats");
+            navigate("/");
 
         } catch (error) {
             setError(true);

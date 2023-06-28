@@ -11,7 +11,6 @@ import { useContext } from "react";
 function App() {
 
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
 
   // If the user is not logged in, redirect to the login page
   const ProtectedRoute = ({ children }) => {
