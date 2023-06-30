@@ -28,6 +28,7 @@ function App() {
           <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="sendmail" element={<ProtectedRoute> <SendMail /> </ProtectedRoute>} />
 
         <Route/>
       </Routes>

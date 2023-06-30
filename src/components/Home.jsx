@@ -1,7 +1,9 @@
 import React from "react";
 import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+    const navigate = useNavigate();
     return (
         <>
         <Navbar>   
@@ -44,7 +46,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                <button className = "btn-style">Send Mail</button>
+                <button className = "btn-style" onClick={()=> navigate('/sendmail')}>Send Mail</button>
             </div>
         </div>
         </>

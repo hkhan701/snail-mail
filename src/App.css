@@ -312,9 +312,40 @@ header {
 /* SEARCH USER PAGE */
 
 .search-input {
+    font-family: var(--font-family-default);
     margin-top: 1rem;
     font-size: var(--fs-300);
 }
+
+.user-chats-box {
+  width: 95vw;
+  max-width: 40rem;
+}
+
+
+.user-chat {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 5rem;
+  border-radius: 1rem;
+  gap: 1rem;
+  background-color: var(--color-green);
+  border: 2px solid var(--color-black);
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-family-title);
+  font-weight: var(--fw-black);
+  font-size: var(--fs-400);
+}
+
+.user-chat:hover, .user-chat:focus {
+  cursor: pointer;
+  background-color: var(--color-light-pink);
+}
+
+
 
 
 @media screen and (max-width: 768px) {
