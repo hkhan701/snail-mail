@@ -46,7 +46,7 @@ const SendMail = () => {
         <div className="message-container">
             <div className="message-wrapper message-box user-chats-box">
                 <div className="password-field">
-                    <input  onChange={(e) => setUsername(e.target.value)} value={username} onKeyDown={handleKey} className="search-input input-text" type="text" placeholder="Find a user" required />
+                    <input  onChange={(e) => setUsername(e.target.value)} value={username} onKeyDown={handleKey} className="search-input input-text" type="text" placeholder="Enter a username" required />
                     <i className="fa-solid fa-check" style={{color: "#020c17", marginLeft: "-30px", cursor: "pointer"}} onClick={handleSearch}></i>
                 </div>
 

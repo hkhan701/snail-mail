@@ -6,13 +6,14 @@ import HideAndShowPassword from "../HideAndShowPassword";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth, storage, db} from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import {doc, setDoc} from 'firebase/firestore';
+import {doc, setDoc, query, where, collection} from 'firebase/firestore';
 import { useNavigate, Link} from "react-router-dom";
 
 const Register = () => {
 
     const [error, setError] = useState(false); // error state
     const [passwordMatchError, setPasswordMatchError] = useState(false); // error state
+    const [usernameExistsError, setUsernameExistsError] = useState(false); // error state
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -23,6 +24,13 @@ const Register = () => {
         const password = e.target[2].value;
         const confirmPassword = e.target[3].value;
         const avatar = e.target[4].files[0];
+
+        const usernameValidation = query(collection(db, "users"), where("displayName", "==", displayName));
+
+        if(!usernameValidation.empty) {
+            setUsernameExistsError(true);
+            return;
+        }
 
         if (password !== confirmPassword) {
             setPasswordMatchError(true);
@@ -36,7 +44,6 @@ const Register = () => {
             // const date = new Date().getTime();
             const storageRef = ref(storage, displayName);
             const uploadTask = uploadBytesResumable(storageRef, avatar);
-
 
             uploadTask.on(
                 "state_changed",
@@ -72,14 +79,12 @@ const Register = () => {
                     })
                     .catch((error) => {
                       // Handle download URL retrieval error
-                      console.log("download URL error", error);
                       setError(true);
                     });
                 }
               );
 
         } catch (error) {
-            console.log(error);
             setError(true);
         }
     }
@@ -103,8 +108,11 @@ const Register = () => {
                     </label>
 
                     <button className="btn-style" type="submit">Start Sending Mail Now </button>
+
                     {error && <span style={{ color: "red", marginTop: "10px" }}>Something went wrong!</span>}
                     {passwordMatchError && <span style={{ color: "red", marginTop: "10px" }}>Passwords do not match!</span>}
+                    {usernameExistsError && <span style={{ color: "red", marginTop: "10px" }}>Username already exists!</span>}
+
                     <p>Already have an account? <Link to = "/login" className="link">Login here</Link></p>
 
                 </form>
