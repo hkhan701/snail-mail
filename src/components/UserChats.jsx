@@ -6,7 +6,7 @@ const UserChats = () => {
             
             <div className="all-chats">
                 <div>
-                    <span className="message-title">My Friends</span>
+                    <h1 className="friends-title">My Friends</h1>
                 </div>
 
                 <div className="user-chat">

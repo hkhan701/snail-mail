@@ -359,13 +359,19 @@ header {
 }
 
 .send-message-btn{
-  width: 30%;
+  width: 25%;
   height: 3rem;
   font-size: var(--fs-200);
   padding: 0 0.5rem;
 }
 
-
+.friends-title {
+  font-size: var(--fs-500);
+  font-family: var(--font-family-title);
+  font-weight: var(--fw-bold);
+  display: flex;
+  justify-content: center;
+}
 
 
 @media screen and (max-width: 768px) {

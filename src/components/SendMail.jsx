@@ -10,16 +10,28 @@ const SendMail = () => {
     const [user, setUser] = useState(null);
     const [error, setError] = useState(false);
 
+    const handleKey = (e) => {
+        if (e.key === "Enter") {
+            handleSearch();
+        }
+    }
+
 
     const handleSearch = async (e) => { 
-
+        setError(false);
             const q = query(collection(db, "users"), where("displayName", "==", username));
 
             try {
                 const querySnapshot = await getDocs(q);
+
+                if(querySnapshot.empty) {
+                    setError(true);
+                    setUser(null);
+                    return;
+                }
+
                 querySnapshot.forEach((doc) => {
                     setUser(doc.data());
-                    console.log(doc.id, " => ", doc.data());
                 });
 
             }catch (err) {
@@ -34,11 +46,11 @@ const SendMail = () => {
         <div className="message-container">
             <div className="message-wrapper message-box user-chats-box">
                 <div className="password-field">
-                    <input  onChange={(e) => setUsername(e.target.value)} value={username} className="search-input input-text" type="text" placeholder="Find a user" required />
+                    <input  onChange={(e) => setUsername(e.target.value)} value={username} onKeyDown={handleKey} className="search-input input-text" type="text" placeholder="Find a user" required />
                     <i className="fa-solid fa-check" style={{color: "#020c17", marginLeft: "-30px", cursor: "pointer"}} onClick={handleSearch}></i>
                 </div>
 
-                {error && <span>User does not exist</span>}
+                {error && <span style={{color: "red"}}>User does not exist</span>}
                 {user && <div className="user-chat">
 
                         <img src={user.photoURL} alt="profilepic" className="profile-img"/>
@@ -46,7 +58,9 @@ const SendMail = () => {
                             <h3>{user.displayName}</h3>
                         </div>
 
-                    <button className="send-message-btn btn-style">Send Message</button>
+                    <button className="send-message-btn btn-style">
+                        <i className="fa-solid fa-paper-plane fa-xl"></i>
+                    </button>
 
                 </div>}
 
