@@ -322,7 +322,6 @@ header {
   max-width: 40rem;
 }
 
-
 .user-chat {
   display: flex;
   justify-content: flex-start;
@@ -330,19 +329,40 @@ header {
   width: 100%;
   height: 5rem;
   border-radius: 1rem;
-  gap: 1rem;
+  gap: 0.5rem;
   background-color: var(--color-green);
   border: 2px solid var(--color-black);
   padding: 0 1rem;
-  margin-bottom: 1rem;
   font-family: var(--font-family-title);
   font-weight: var(--fw-black);
-  font-size: var(--fs-400);
+  font-size: var(--fs-300);
+}
+
+.send-message-btn {
+  margin-left: auto;
 }
 
 .user-chat:hover, .user-chat:focus {
-  cursor: pointer;
-  background-color: var(--color-light-pink);
+  transform: scale(1.02);
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-black);
+}
+
+.all-chats{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.send-message-btn{
+  width: 30%;
+  height: 3rem;
+  font-size: var(--fs-200);
+  padding: 0 0.5rem;
 }
 
 

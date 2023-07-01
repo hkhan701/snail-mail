@@ -1,4 +1,4 @@
-import React, { useRef, useState} from "react";
+import React, { useState} from "react";
 import Navbar from "./Navbar";
 import UserChats from "./UserChats";
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -41,11 +41,17 @@ const SendMail = () => {
                 {error && <span>User does not exist</span>}
                 {user && <div className="user-chat">
 
-                    <img src={user.photoURL} alt="profilepic" className="profile-img"/>
+                        <img src={user.photoURL} alt="profilepic" className="profile-img"/>
+                        <div className="user-chat-info">
+                            <h3>{user.displayName}</h3>
+                        </div>
 
-                    <div className="user-chat-info">
-                        <h3>{user.displayName}</h3>
-                    </div>
+                    <button className="send-message-btn btn-style">Send Message</button>
+
+                </div>}
+
+                {user && <div className="divider">
+
                 </div>}
 
                 <UserChats/>
