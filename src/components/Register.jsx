@@ -4,19 +4,20 @@ import MainTitle from "../components/MainTitle";
 import Footer from "../components/Footer";
 import HideAndShowPassword from "../HideAndShowPassword";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {doc, setDoc} from 'firebase/firestore';
 import {auth, storage, db} from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import {doc, setDoc, query, where, collection} from 'firebase/firestore';
+
 import { useNavigate, Link} from "react-router-dom";
 
 const Register = () => {
 
     const [error, setError] = useState(false); // error state
     const [passwordMatchError, setPasswordMatchError] = useState(false); // error state
-    const [usernameExistsError, setUsernameExistsError] = useState(false); // error state
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
+        setError(false);
         e.preventDefault();
 
         const displayName = e.target[0].value;
@@ -24,13 +25,6 @@ const Register = () => {
         const password = e.target[2].value;
         const confirmPassword = e.target[3].value;
         const avatar = e.target[4].files[0];
-
-        const usernameValidation = query(collection(db, "users"), where("displayName", "==", displayName));
-
-        if(!usernameValidation.empty) {
-            setUsernameExistsError(true);
-            return;
-        }
 
         if (password !== confirmPassword) {
             setPasswordMatchError(true);
@@ -109,9 +103,12 @@ const Register = () => {
 
                     <button className="btn-style" type="submit">Start Sending Mail Now </button>
 
-                    {error && <span style={{ color: "red", marginTop: "10px" }}>Something went wrong!</span>}
-                    {passwordMatchError && <span style={{ color: "red", marginTop: "10px" }}>Passwords do not match!</span>}
-                    {usernameExistsError && <span style={{ color: "red", marginTop: "10px" }}>Username already exists!</span>}
+                    {error && <span style={{ color: "red", marginTop: "10px" }}>
+                        <i className="fa-solid fa-triangle-exclamation fa-xl" style= {{color: "#ff0000"}}></i>             Something went wrong!
+                    </span>}
+                    {passwordMatchError && <span style={{ color: "red", marginTop: "10px" }}>
+                        <i className="fa-solid fa-triangle-exclamation fa-xl" style= {{color: "#ff0000"}}></i>             Passwords do not match!
+                    </span>}
 
                     <p>Already have an account? <Link to = "/login" className="link">Login here</Link></p>
 

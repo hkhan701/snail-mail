@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import UserChats from "./UserChats";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import ProfileImg from "./ProfileImg";
 
 const SendMail = () => {
 
@@ -46,14 +47,15 @@ const SendMail = () => {
         <div className="message-container">
             <div className="message-wrapper message-box user-chats-box">
                 <div className="password-field">
-                    <input  onChange={(e) => setUsername(e.target.value)} value={username} onKeyDown={handleKey} className="search-input input-text" type="text" placeholder="Enter a username" required />
+                    <input  onChange={(e) => setUsername(e.target.value)} value={username} onKeyDown={handleKey} className="search-input input-text" type="text" placeholder="Send to" required />
                     <i className="fa-solid fa-check" style={{color: "#020c17", marginLeft: "-30px", cursor: "pointer"}} onClick={handleSearch}></i>
                 </div>
 
                 {error && <span style={{color: "red"}}>User does not exist</span>}
                 {user && <div className="user-chat">
 
-                        <img src={user.photoURL} alt="profilepic" className="profile-img"/>
+                        <ProfileImg photoURL={user.photoURL}/>
+
                         <div className="user-chat-info">
                             <h3>{user.displayName}</h3>
                         </div>
