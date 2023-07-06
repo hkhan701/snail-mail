@@ -1,22 +1,24 @@
-import React, { useState} from "react";
+import React, { useContext, useState} from "react";
 import Navbar from "./Navbar";
 import UserChats from "./UserChats";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
 import ProfileImg from "./ProfileImg";
+import {collection,query,where,getDocs,setDoc,doc,updateDoc,serverTimestamp,getDoc} from "firebase/firestore";
+import { db } from "../firebase";
+import { AuthContext } from "../context/AuthContext";
+
 
 const SendMail = () => {
 
     const [username, setUsername] = useState("");
     const [user, setUser] = useState(null);
     const [error, setError] = useState(false);
+    const {currentUser} = useContext(AuthContext);
 
     const handleKey = (e) => {
         if (e.key === "Enter") {
             handleSearch();
         }
     }
-
 
     const handleSearch = async (e) => { 
         setError(false);
@@ -40,6 +42,44 @@ const SendMail = () => {
             }    
     };
 
+    const handleSelect = async () => {
+        //check whether the group(chats in firestore) exists, if not create
+        const combinedId =
+          currentUser.uid > user.uid
+            ? currentUser.uid + user.uid
+            : user.uid + currentUser.uid;
+        try {
+          const res = await getDoc(doc(db, "chats", combinedId));
+    
+          if (!res.exists()) {
+            //create a chat in chats collection
+            await setDoc(doc(db, "chats", combinedId), { messages: [] });
+    
+            //create user chats
+            await updateDoc(doc(db, "userChats", currentUser.uid), {
+              [combinedId + ".userInfo"]: {
+                uid: user.uid,
+                displayName: user.displayName,
+                photoURL: user.photoURL,
+              },
+              [combinedId + ".date"]: serverTimestamp(),
+            });
+    
+            await updateDoc(doc(db, "userChats", user.uid), {
+              [combinedId + ".userInfo"]: {
+                uid: currentUser.uid,
+                displayName: currentUser.displayName,
+                photoURL: currentUser.photoURL,
+              },
+              [combinedId + ".date"]: serverTimestamp(),
+            });
+          }
+        } catch (err) {}
+    
+        setUser(null);
+        setUsername("")
+      };
+
     return (
         <>
         <Navbar>   
@@ -60,8 +100,8 @@ const SendMail = () => {
                             <h3>{user.displayName}</h3>
                         </div>
 
-                    <button className="send-message-btn btn-style">
-                        <i className="fa-solid fa-paper-plane fa-xl"></i>
+                    <button className="send-message-btn btn-style" onClick={handleSelect}>
+                        <i className="fa-solid fa-paper-plane fa-xl" ></i>
                     </button>
 
                 </div>}

@@ -37,6 +37,7 @@ const Register = () => {
             //Create a unique image name
             // const date = new Date().getTime();
             const storageRef = ref(storage, displayName);
+            
             const uploadTask = uploadBytesResumable(storageRef, avatar);
 
             uploadTask.on(
