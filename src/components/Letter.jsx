@@ -1,11 +1,18 @@
-import React, {useContext} from "react";
+import React, {useContext, useSTate} from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 
 const Letter = () => {
 
+    const [text, setText] = useState("");
+
     const {currentUser} = useContext(AuthContext);
     const {data} = useContext(ChatContext);
+
+
+    const handleSend = () => {
+        
+    }
 
     return (
 
@@ -25,14 +32,14 @@ const Letter = () => {
                         <h1 className="from-to-names">{data.user?.displayName}</h1> 
                     </div>
 
-                    <button className="send-letter-btn btn-style">
+                    <button className="send-letter-btn btn-style" onClick={handleSend}>
                             <i className="fa-solid fa-paper-plane fa-2xs" ></i>
                     </button>
                       
                 </div>
 
                 <div className="letter-body">
-                        <textarea className="letter-textarea" placeholder="Write your letter here..."></textarea>
+                        <textarea className="letter-textarea" placeholder="Write your letter here..." onChange={e=> setText(e.target.value)}></textarea>
                 </div>  
 
             </div>
