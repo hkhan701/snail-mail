@@ -5,9 +5,11 @@ import ProfileImg from "./ProfileImg";
 import {collection,query,where,getDocs,setDoc,doc,updateDoc,serverTimestamp,getDoc} from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate} from "react-router-dom";
 
 
-const SendMail = () => {
+const Friends = () => {
+  const navigate = useNavigate();
 
     const [username, setUsername] = useState("");
     const [user, setUser] = useState(null);
@@ -73,6 +75,8 @@ const SendMail = () => {
               },
               [combinedId + ".date"]: serverTimestamp(),
             });
+
+            navigate('/send-letter');
           }
         } catch (err) {}
     
@@ -117,4 +121,4 @@ const SendMail = () => {
     )
 }
 
-export default SendMail;
+export default Friends;

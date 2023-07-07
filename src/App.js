@@ -1,7 +1,8 @@
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
-import SendMail from "./components/SendMail";
+import Friends from "./components/Friends";
+import SendLetter from "./components/SendLetter";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
@@ -28,7 +29,8 @@ function App() {
           <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="sendmail" element={<ProtectedRoute> <SendMail /> </ProtectedRoute>} />
+          <Route path="friends" element={<ProtectedRoute> <Friends /> </ProtectedRoute>} />
+          <Route path="send-letter" element={<ProtectedRoute> <SendLetter /> </ProtectedRoute>} />
 
         <Route/>
       </Routes>

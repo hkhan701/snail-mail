@@ -3,9 +3,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { db } from "../firebase";
 import ProfileImg from "./ProfileImg";
+import { useNavigate} from "react-router-dom";
 
 const UserChats = () => {
-
+    const navigate = useNavigate();
     const [chats, setChats] = useState([]);
     const { currentUser } = useContext(AuthContext);
 
@@ -41,8 +42,8 @@ const UserChats = () => {
                             <span>{chat[1].userInfo.displayName}</span> 
                         </div>
 
-                        <button className="send-message-btn btn-style">
-                            <i className="fa-solid fa-paper-plane fa-xl" ></i>
+                        <button className="send-message-btn btn-style" onClick={()=> navigate('/send-letter')}>
+                            <i className="fa-solid fa-paper-plane fa-xl"></i>
                         </button>
                     </div>
                 ))}

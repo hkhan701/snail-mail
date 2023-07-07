@@ -18,7 +18,8 @@
   --fw-bold: 600;
   --fw-black: 700;
 
-  --fs-200: 0.8rem;
+  --fs-100: 0.8rem;
+  --fs-200: 1rem;
   --fs-300: 1.2rem;
   --fs-400: 1.4rem;
   --fs-500: 1.8rem;
@@ -399,4 +400,82 @@ header {
     left: 0;
     width: 100%;
   }
+}
+
+/* LETTER */
+
+.letter-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 80%;
+}
+
+.letter-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 95vw;
+  max-width: 40rem;
+  max-height: 100%;
+  padding: 1.5rem 1.5rem;
+  background-color: var(--color-grey);
+  border: 2px solid var(--color-black);
+  border-radius: 1rem;
+  gap: 1rem;
+}
+
+.letter-header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.7rem;
+  position: relative;
+}
+
+.send-letter-btn {
+  width: 3rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  position:absolute; 
+  top:0; 
+  right:0;
+}
+
+.from-to-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0;
+  font-family: var(--font-family-default);
+  font-size: var(--fs-100);
+  font-weight: var(--fw-bold);
+}
+
+.from-to-names {
+  font-size: var(--fs-300);
+  font-weight: var(--fw-black);
+  font-family: var(--font-family-title);
+  line-height: 1.5rem;
+}
+
+.letter-body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 0.7rem;
+  font-family: var(--font-family-default);
+  font-size: var(--fs-200);
+  font-weight: var(--fw-bold);
+}
+
+.letter-textarea {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-grey);
+  padding: 0rem;
+  border: 0 none;
+  outline:none;
+  resize: none;
 }

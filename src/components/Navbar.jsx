@@ -6,13 +6,14 @@ import ProfileImg from "./ProfileImg";
 const Navbar = () => {
     const navigate = useNavigate();
     const {currentUser} = useContext(AuthContext);
-    const isSendMailPage = useLocation().pathname === "/sendmail"; // Check if the current page is "/sendmail"
+    const isFriendsPage = useLocation().pathname === "/friends"; // Check if the current page is "/friends"
+    const isLetterPage = useLocation().pathname === "/send-letter"; // Check if the current page is "/send-letter"
 
     return (
         <header>
             <div className="navbar-wrapper">
 
-                {isSendMailPage && <i className="fa-solid fa-chevron-left fa-2xl" style={{color: "#e1e0dc", cursor: "pointer"}} onClick={()=> navigate('/')}></i>}
+                {(isFriendsPage || isLetterPage) && <i className="fa-solid fa-chevron-left fa-2xl" style={{color: "#e1e0dc", cursor: "pointer"}} onClick={()=> navigate('/')}></i>}
                 
                 <ProfileImg photoURL = {currentUser.photoURL}/>
 

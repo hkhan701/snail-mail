@@ -46,7 +46,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                <button className = "btn-style" onClick={()=> navigate('/sendmail')}>Send Mail</button>
+                <button className = "btn-style" onClick={()=> navigate('/friends')}>Send Mail</button>
             </div>
         </div>
         </>
