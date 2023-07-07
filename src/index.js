@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './App.css';
 import { AuthContextProvider } from './context/AuthContext';
+import { ChatContextProvider } from './context/ChatContext';
 
 ReactDOM.render(
     
     <AuthContextProvider>
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>
+        <ChatContextProvider>
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>
+        </ChatContextProvider>
     </AuthContextProvider>
 
 ,document.getElementById('root'));

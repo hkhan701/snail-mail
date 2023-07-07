@@ -13,10 +13,12 @@ import { useNavigate, Link} from "react-router-dom";
 const Register = () => {
 
     const [error, setError] = useState(false); // error state
+    const [loading, setLoading] = useState(false); // loading state
     const [passwordMatchError, setPasswordMatchError] = useState(false); // error state
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
+        setLoading(true);
         setError(false);
         e.preventDefault();
 
@@ -74,13 +76,15 @@ const Register = () => {
                     })
                     .catch((error) => {
                       // Handle download URL retrieval error
+                      setLoading(false);
                       setError(true);
                     });
                 }
               );
-
+                
         } catch (error) {
             setError(true);
+            setLoading(false);
         }
     }
 
@@ -102,7 +106,8 @@ const Register = () => {
                         <span>Upload your avatar</span>
                     </label>
 
-                    <button className="btn-style" type="submit">Start Sending Mail Now </button>
+                    <button className="btn-style" type="submit">Start Sending Mail Now  <span></span>       
+                    {loading && <i className="fa-solid fa-circle-notch fa-spin fa-lg"></i>}</button>
 
                     {error && <span style={{ color: "red", marginTop: "10px" }}>
                         <i className="fa-solid fa-triangle-exclamation fa-xl" style= {{color: "#ff0000"}}></i>             Something went wrong!

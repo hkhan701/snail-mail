@@ -1,9 +1,11 @@
 import React, {useContext} from "react";
 import { AuthContext } from "../context/AuthContext";
+import { ChatContext } from "../context/ChatContext";
 
 const Letter = () => {
 
     const {currentUser} = useContext(AuthContext);
+    const {data} = useContext(ChatContext);
 
     return (
 
@@ -20,7 +22,7 @@ const Letter = () => {
 
                     <div className="from-to-container">
                         <h1>To</h1>  
-                        <h1 className="from-to-names">Haiqa Khan</h1> 
+                        <h1 className="from-to-names">{data.user?.displayName}</h1> 
                     </div>
 
                     <button className="send-letter-btn btn-style">

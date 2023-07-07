@@ -1,6 +1,7 @@
 import { doc, onSnapshot } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { ChatContext } from "../context/ChatContext";
 import { db } from "../firebase";
 import ProfileImg from "./ProfileImg";
 import { useNavigate} from "react-router-dom";
@@ -9,6 +10,7 @@ const UserChats = () => {
     const navigate = useNavigate();
     const [chats, setChats] = useState([]);
     const { currentUser } = useContext(AuthContext);
+    const {dispatch} = useContext(ChatContext);
 
     useEffect(() => {
         const getChats = () => {
@@ -23,6 +25,11 @@ const UserChats = () => {
 
         currentUser.uid && getChats();
     }, [currentUser.uid]);
+
+    const handleSelect = (user) => {
+        dispatch({type: "CHANGE_USER", payload: user});
+        navigate("/send-letter");
+    };
 
 
     return (
@@ -42,7 +49,7 @@ const UserChats = () => {
                             <span>{chat[1].userInfo.displayName}</span> 
                         </div>
 
-                        <button className="send-message-btn btn-style" onClick={()=> navigate('/send-letter')}>
+                        <button className="send-message-btn btn-style" onClick={()=>handleSelect(chat[1].userInfo)}>
                             <i className="fa-solid fa-paper-plane fa-xl"></i>
                         </button>
                     </div>
