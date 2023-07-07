@@ -13,7 +13,7 @@ const Navbar = () => {
         <header>
             <div className="navbar-wrapper">
 
-                {(isFriendsPage || isLetterPage) && <i className="fa-solid fa-chevron-left fa-2xl" style={{color: "#e1e0dc", cursor: "pointer"}} onClick={()=> navigate('/')}></i>}
+                {(isFriendsPage || isLetterPage) && <i className="fa-solid fa-chevron-left fa-2xl" style={{color: "#e1e0dc", cursor: "pointer"}} onClick={()=> navigate(-1)}></i>}
                 
                 <ProfileImg photoURL = {currentUser.photoURL}/>
 
