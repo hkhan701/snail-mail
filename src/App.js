@@ -1,8 +1,8 @@
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Home from "./components/Home";
-import Friends from "./components/Friends";
-import SendLetter from "./components/SendLetter";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Friends from "./pages/Friends";
+import SendLetter from "./pages/SendLetter";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";

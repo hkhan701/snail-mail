@@ -9,9 +9,11 @@ import { auth } from "../firebase";
 const Login = () => {
 
     const [error, setError] = useState(false); // error state
+    const [loading, setLoading] = useState(false); // loading state
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
+        setLoading(true);
         e.preventDefault();
 
         const email = e.target[0].value;
@@ -23,6 +25,7 @@ const Login = () => {
             navigate("/");
 
         } catch (error) {
+            setLoading(false);
             setError(true);
         }
     }
@@ -37,7 +40,8 @@ const Login = () => {
                     <input className="input-text" type="text" placeholder="Enter your email" required/>
                     <HideAndShowPassword placeholder = "Enter your password"></HideAndShowPassword>
 
-                    <button className = "btn-style" type="submit">Login</button>
+                    <button className = "btn-style" type="submit">Login <span></span>
+                    {loading && <i className="fa-solid fa-circle-notch fa-spin fa-lg"></i>}</button>
                     {error && <span style={{ color: "red", marginTop: "10px" }}>Something went wrong!</span>}
                     <p>Don't have an account? <Link to = "/register" className="link">Sign up now</Link></p>
                 </form>

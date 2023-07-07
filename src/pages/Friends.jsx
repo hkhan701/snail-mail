@@ -1,7 +1,7 @@
 import React, { useContext, useState} from "react";
-import Navbar from "./Navbar";
-import UserChats from "./UserChats";
-import ProfileImg from "./ProfileImg";
+import Navbar from "../components/Navbar";
+import UserChats from "../components/UserChats";
+import ProfileImg from "../components/ProfileImg";
 import {collection,query,where,getDocs,setDoc,doc,updateDoc,serverTimestamp,getDoc} from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
