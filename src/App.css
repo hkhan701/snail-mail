@@ -479,3 +479,7 @@ header {
   outline:none;
   resize: none;
 }
+
+.fa-solid {
+  -webkit-text-stroke: 1px var(--color-light-pink);
+}
