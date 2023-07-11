@@ -1,7 +1,9 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
+import { db, storage } from "../firebase";
 import { Timestamp, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const Letter = () => {
     const { v4: uuidv4 } = require('uuid');
@@ -19,15 +21,43 @@ const Letter = () => {
     };
 
     const handleSend = async () => {
-        await updateDoc(doc(data.db, "chats", data.chatId), {
-            messages: arrayUnion({
+
+        if (img) {
+            const storageRef = ref(storage, uuidv4());
+            const uploadTask = uploadBytesResumable(storageRef, img);
+        
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                },
+                (error) => {
+                },
+                () => {
+                getDownloadURL(uploadTask.snapshot.ref)
+                  .then(async (downloadURL) => {
+                    await updateDoc(doc(db, "chats", data.chatId), {
+                      messages: arrayUnion({
+                        id: uuidv4(),
+                        text,
+                        senderId: currentUser.uid,
+                        date: Timestamp.now(),
+                        img: downloadURL,
+                      }),
+                    });
+                  })
+              }
+            );
+          } else {
+            await updateDoc(doc(db, "chats", data.chatId), {
+              messages: arrayUnion({
                 id: uuidv4(),
-                senderId: currentUser.uid,
                 text,
-                timestamp: Timestamp.now()
-            })
-        });
-    };
+                senderId: currentUser.uid,
+                date: Timestamp.now(),
+              }),
+            });
+          }
+        };
 
     return (
 

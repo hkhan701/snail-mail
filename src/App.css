@@ -253,7 +253,8 @@ header {
 }
 
 .profile-img {
-  width: 3rem;
+  min-width: 3rem;
+  max-width: 3rem;
   height: 3rem;
   border-radius: 50%;
   object-fit: cover;
@@ -337,6 +338,10 @@ header {
   font-family: var(--font-family-title);
   font-weight: var(--fw-black);
   font-size: var(--fs-300);
+}
+
+.user-chat-info {
+  font-size: clamp(var(--fs-100), 3vw ,var(--fs-300));
 }
 
 .send-message-btn {
@@ -480,6 +485,6 @@ header {
   resize: none;
 }
 
-.fa-solid {
-  -webkit-text-stroke: 1px var(--color-light-pink);
+.fa-file-circle-plus, .fa-file-circle-check {
+  -webkit-text-stroke: 2px var(--color-black);
 }

@@ -26,11 +26,11 @@ function App() {
       <Routes>
         <Route path="/"/>
 
-          <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route index element={<ProtectedRoute><Home/></ProtectedRoute>} />
           <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="friends" element={<ProtectedRoute> <Friends /> </ProtectedRoute>} />
-          <Route path="send-letter" element={<ProtectedRoute> <SendLetter /> </ProtectedRoute>} />
+          <Route path="register" element={<Register/>} />
+          <Route path="friends" element={<ProtectedRoute> <Friends/> </ProtectedRoute>} />
+          <Route path="send-letter" element={<ProtectedRoute> <SendLetter/> </ProtectedRoute>} />
 
         <Route/>
       </Routes>

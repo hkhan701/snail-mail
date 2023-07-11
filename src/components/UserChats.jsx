@@ -34,7 +34,6 @@ const UserChats = () => {
 
     return (
         <>
-
             <div className="all-chats">
                 <div>
                     <h1 className="friends-title">My Friends</h1>
@@ -45,7 +44,7 @@ const UserChats = () => {
 
                     <ProfileImg photoURL = {chat[1].userInfo.photoURL} />
 
-                        <div className="userChatInfo">
+                        <div className="user-chat-info">
                             <span>{chat[1].userInfo.displayName}</span> 
                         </div>
 
