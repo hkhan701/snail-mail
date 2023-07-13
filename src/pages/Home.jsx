@@ -10,8 +10,8 @@ import { AuthContext } from "../context/AuthContext";
 
 const Home = () => {
     const navigate = useNavigate();
-    const {data} = useContext(ChatContext);
-    const {currentUser} = useContext(AuthContext);
+    const { data } = useContext(ChatContext);
+    const { currentUser } = useContext(AuthContext);
 
     const [messages, setMessages] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
@@ -24,49 +24,51 @@ const Home = () => {
                 setMessages(chatData.messages);
                 const filteredMessages = chatData.messages.filter(
                     (message) =>
-                      message.senderId !== currentUser.uid
+                        message.senderId !== currentUser.uid
                 );
 
                 const unreadMessages = chatData.messages.filter(
                     (message) =>
-                      message.senderId !== currentUser.uid && !message.read
+                        message.senderId !== currentUser.uid && !message.read
                 );
-                  setMessages(filteredMessages);
-                  setUnreadCount(unreadMessages.length);
-              }
+                setMessages(filteredMessages);
+                setUnreadCount(unreadMessages.length);
+            }
         });
-    
+
         return () => {
-          unSub();
+            unSub();
         };
-      }, [data.chatId]);
+    }, [data.chatId]);
 
 
     return (
         <>
-        <Navbar>   
-        </Navbar>
-        <div className="message-container">
+            <Navbar>
+            </Navbar>
+            <div className="message-container">
 
-            <div className="message-wrapper">
+                <div className="message-wrapper">
 
-                <div className="messages-header">
-                    <h1 className = "message-title title-style">you have mail ({unreadCount})</h1>
+                    <div className="messages-header">
+                        <h1 className="message-title title-style">you have mail ({unreadCount})</h1>
+                    </div>
+
+                    <div className="message-gallery">
+
+                        {messages
+                            ?.sort((a, b) => b.date - a.date) // Sort messages by date in descending order
+                            .map((message) => (
+                                <Message message={message} key={message.id} />
+                            ))}
+
+                    </div>
+
+                    <button className="btn-style" onClick={() => navigate('/friends')}>Send Mail</button>
                 </div>
-
-                <div className="message-gallery">
-                    
-                    {messages?.map((message) => (
-                        <Message message={message} key={message.id}/>
-                    ))}
-
-                </div>
-
-                <button className = "btn-style" onClick={()=> navigate('/friends')}>Send Mail</button>
             </div>
-        </div>
         </>
     )
-}   
+}
 
 export default Home;
