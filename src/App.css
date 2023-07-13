@@ -312,6 +312,7 @@ header {
   border: 2px solid var(--color-black);
 }
 
+
 .unread {
   background-color: var(--color-light-pink);
   border: 5px solid var(--color-black);

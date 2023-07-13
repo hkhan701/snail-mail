@@ -1,7 +1,7 @@
-import React, { useContext} from "react";
+import React, { useContext, useState, useEffect} from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
-import { updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 
 
@@ -9,25 +9,40 @@ const Message = ({message}) => {
 
     const { currentUser } = useContext(AuthContext);
     const { data, dispatch } = useContext(ChatContext);
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
+            if (doc.exists()) {
+                setMessages(doc.data().messages);
+            }
+        });
+    
+        return () => {
+          unSub();
+        };
+      }, [data.chatId]);
 
     const handleMessageBoxClick = async () => {
-        // if (!message.read) {
-        // // Update status to read
-        // await updateDoc(doc(db, "chats", data.chatId), {
-        //     messages: data.messages.map((msg) =>
-        //     msg.id === message.id ? { ...msg, read: true } : msg
-        //     ),
-        // });
-
-        // // Update context state
-        // dispatch({ type: "UPDATE_MESSAGES", payload: data.messages });
-        // }
+        if (!message.read) {
+            const updatedMessages = messages?.map((msg) =>
+              msg.id === message.id ? { ...msg, read: true } : msg
+            );
+        
+            // Update status to read in Firestore
+            await updateDoc(doc(db, "chats", data.chatId), {
+              messages: updatedMessages,
+            });
+        
+            // Update context state with the updated messages array
+            dispatch({ type: "UPDATE_MESSAGES", payload: updatedMessages });
+          }
     };
 
 
     return (
         <>
-        {message.senderId !== currentUser.uid && <div className={`message-box ${message.read ? "" : "unread"}`} onClick={handleMessageBoxClick}>
+        {message.senderId !== currentUser.uid && <div className={`message-box ${message.read ? "" : " unread"}`} onClick={handleMessageBoxClick}>
 
             <div className="message-info">
                 {message.img && <i className="fa-solid fa-image fa-3x" style={{ color: "#f2b5be"}}></i>}

@@ -24,10 +24,15 @@ const Home = () => {
                 setMessages(chatData.messages);
                 const filteredMessages = chatData.messages.filter(
                     (message) =>
+                      message.senderId !== currentUser.uid
+                );
+
+                const unreadMessages = chatData.messages.filter(
+                    (message) =>
                       message.senderId !== currentUser.uid && !message.read
-                  );
+                );
                   setMessages(filteredMessages);
-                  setUnreadCount(filteredMessages.length);
+                  setUnreadCount(unreadMessages.length);
               }
         });
     
