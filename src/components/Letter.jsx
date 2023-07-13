@@ -27,7 +27,7 @@ const Letter = () => {
             // send img
             const storageRef = ref(storage, uuidv4());
             const uploadTask = uploadBytesResumable(storageRef, img);
-        
+
             uploadTask.on(
                 "state_changed",
                 (snapshot) => {
@@ -35,36 +35,36 @@ const Letter = () => {
                 (error) => {
                 },
                 () => {
-                getDownloadURL(uploadTask.snapshot.ref)
-                  .then(async (downloadURL) => {
-                    await updateDoc(doc(db, "chats", data.chatId), {
-                      messages: arrayUnion({
-                        id: uuidv4(),
-                        text,
-                        senderId: currentUser.uid,
-                        date: Timestamp.now(),
-                        read: false,
-                        img: downloadURL,
-                      }),
-                    });
-                  })
-              }
+                    getDownloadURL(uploadTask.snapshot.ref)
+                        .then(async (downloadURL) => {
+                            await updateDoc(doc(db, "chats", data.chatId), {
+                                messages: arrayUnion({
+                                    id: uuidv4(),
+                                    text,
+                                    senderId: currentUser.uid,
+                                    date: Timestamp.now(),
+                                    read: false,
+                                    img: downloadURL,
+                                }),
+                            });
+                        })
+                }
             );
-          } else {
+        } else {
             // send text only
             await updateDoc(doc(db, "chats", data.chatId), {
-              messages: arrayUnion({
-                id: uuidv4(),
-                text,
-                senderId: currentUser.uid,
-                read: false,
-                date: Timestamp.now(),
-              }),
+                messages: arrayUnion({
+                    id: uuidv4(),
+                    text,
+                    senderId: currentUser.uid,
+                    read: false,
+                    date: Timestamp.now(),
+                }),
             });
-          }
-          setText("");
-          setImg(null);
-        };
+        }
+        setText("");
+        setImg(null);
+    };
 
     return (
 

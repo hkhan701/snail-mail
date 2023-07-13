@@ -15,24 +15,24 @@ function App() {
 
   // If the user is not logged in, redirect to the login page
   const ProtectedRoute = ({ children }) => {
-   if(!currentUser) {
+    if (!currentUser) {
       return <Navigate to="/login" />
     }
-      return children;
+    return children;
   };
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/"/>
+        <Route path="/" />
 
-          <Route index element={<ProtectedRoute><Home/></ProtectedRoute>} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register/>} />
-          <Route path="friends" element={<ProtectedRoute> <Friends/> </ProtectedRoute>} />
-          <Route path="send-letter" element={<ProtectedRoute> <SendLetter/> </ProtectedRoute>} />
+        <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="friends" element={<ProtectedRoute> <Friends /> </ProtectedRoute>} />
+        <Route path="send-letter" element={<ProtectedRoute> <SendLetter /> </ProtectedRoute>} />
 
-        <Route/>
+        <Route />
       </Routes>
     </BrowserRouter>
   );

@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import MainTitle from "../components/MainTitle";
 import HideAndShowPassword from "../HideAndShowPassword";
 import Footer from "../components/Footer";
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -32,22 +32,22 @@ const Login = () => {
 
     return (
         <>
-        <MainTitle/>
-        <div className="form-container">
-            <div className="form-wrapper">
-                <form onSubmit={handleSubmit}>
+            <MainTitle />
+            <div className="form-container">
+                <div className="form-wrapper">
+                    <form onSubmit={handleSubmit}>
 
-                    <input className="input-text" type="text" placeholder="Enter your email" required/>
-                    <HideAndShowPassword placeholder = "Enter your password"></HideAndShowPassword>
+                        <input className="input-text" type="text" placeholder="Enter your email" required />
+                        <HideAndShowPassword placeholder="Enter your password"></HideAndShowPassword>
 
-                    <button className = "btn-style" type="submit">Login <span></span>
-                    {loading && <i className="fa-solid fa-circle-notch fa-spin fa-lg"></i>}</button>
-                    {error && <span style={{ color: "red", marginTop: "10px" }}>Something went wrong!</span>}
-                    <p>Don't have an account? <Link to = "/register" className="link">Sign up now</Link></p>
-                </form>
+                        <button className="btn-style" type="submit">Login <span></span>
+                            {loading && <i className="fa-solid fa-circle-notch fa-spin fa-lg"></i>}</button>
+                        {error && <span style={{ color: "red", marginTop: "10px" }}>Something went wrong!</span>}
+                        <p>Don't have an account? <Link to="/register" className="link">Sign up now</Link></p>
+                    </form>
+                </div>
             </div>
-        </div>
-        <Footer/>
+            <Footer />
         </>
     );
 }

@@ -4,11 +4,11 @@ import MainTitle from "../components/MainTitle";
 import Footer from "../components/Footer";
 import HideAndShowPassword from "../HideAndShowPassword";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import {doc, setDoc} from 'firebase/firestore';
-import {auth, storage, db} from '../firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, storage, db } from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
 
@@ -39,7 +39,7 @@ const Register = () => {
             //Create a unique image name
             // const date = new Date().getTime();
             const storageRef = ref(storage, displayName);
-            
+
             const uploadTask = uploadBytesResumable(storageRef, avatar);
 
             uploadTask.on(
@@ -47,41 +47,41 @@ const Register = () => {
                 (snapshot) => {
                 },
                 (error) => {
-                  // Handle unsuccessful uploads
-                  console.log("upload error", error);
-                  setError(true);
+                    // Handle unsuccessful uploads
+                    console.log("upload error", error);
+                    setError(true);
                 },
                 () => {
-                  // Upload completed successfully, now get the download URL
-                  getDownloadURL(uploadTask.snapshot.ref)
-                    .then(async (downloadURL) => {
+                    // Upload completed successfully, now get the download URL
+                    getDownloadURL(uploadTask.snapshot.ref)
+                        .then(async (downloadURL) => {
 
-                        // Update profile
-                        await updateProfile(res.user, {
-                            displayName,
-                            photoURL: avatar ? downloadURL : null, // if avatar is uploaded, set photoURL to downloadURL, else set to null
+                            // Update profile
+                            await updateProfile(res.user, {
+                                displayName,
+                                photoURL: avatar ? downloadURL : null, // if avatar is uploaded, set photoURL to downloadURL, else set to null
+                            });
+
+                            // Add user to Firestore
+                            await setDoc(doc(db, "users", res.user.uid), {
+                                uid: res.user.uid,
+                                displayName,
+                                email,
+                                photoURL: avatar ? downloadURL : null,
+                            });
+
+                            await setDoc(doc(db, "userChats", res.user.uid), {});
+                            navigate('/');
+
+                        })
+                        .catch((error) => {
+                            // Handle download URL retrieval error
+                            setLoading(false);
+                            setError(true);
                         });
-                
-                        // Add user to Firestore
-                        await setDoc(doc(db, "users", res.user.uid), {
-                            uid: res.user.uid,
-                            displayName,
-                            email,
-                            photoURL: avatar ? downloadURL : null,
-                        });
-
-                        await setDoc(doc(db, "userChats", res.user.uid), {});
-                        navigate('/');
-
-                    })
-                    .catch((error) => {
-                      // Handle download URL retrieval error
-                      setLoading(false);
-                      setError(true);
-                    });
                 }
-              );
-                
+            );
+
         } catch (error) {
             setError(true);
             setLoading(false);
@@ -91,37 +91,37 @@ const Register = () => {
 
     return (
         <>
-        <MainTitle/>
-        <div className="form-container">
-            <div className="form-wrapper">
-                <form onSubmit={handleSubmit}>
-                    <input className="input-text" type="text" placeholder="Enter your username" required />
-                    <input className="input-text" type="email" placeholder="Enter your email" required />
-                    <HideAndShowPassword placeholder="Enter your password"/>
-                    <HideAndShowPassword placeholder="Confirm your password"/>
+            <MainTitle />
+            <div className="form-container">
+                <div className="form-wrapper">
+                    <form onSubmit={handleSubmit}>
+                        <input className="input-text" type="text" placeholder="Enter your username" required />
+                        <input className="input-text" type="email" placeholder="Enter your email" required />
+                        <HideAndShowPassword placeholder="Enter your password" />
+                        <HideAndShowPassword placeholder="Confirm your password" />
 
-                    <input style={{ display: "none" }} type="file" id="file" className="file-input" />
-                    <label htmlFor="file">
-                        <img src={AddAvatar} alt="upload avatar" />
-                        <span>Upload your avatar</span>
-                    </label>
+                        <input style={{ display: "none" }} type="file" id="file" className="file-input" />
+                        <label htmlFor="file">
+                            <img src={AddAvatar} alt="upload avatar" />
+                            <span>Upload your avatar</span>
+                        </label>
 
-                    <button className="btn-style" type="submit">Start Sending Mail Now  <span></span>       
-                    {loading && <i className="fa-solid fa-circle-notch fa-spin fa-lg"></i>}</button>
+                        <button className="btn-style" type="submit">Start Sending Mail Now  <span></span>
+                            {loading && <i className="fa-solid fa-circle-notch fa-spin fa-lg"></i>}</button>
 
-                    {error && <span style={{ color: "red", marginTop: "10px" }}>
-                        <i className="fa-solid fa-triangle-exclamation fa-xl" style= {{color: "#ff0000"}}></i>             Something went wrong!
-                    </span>}
-                    {passwordMatchError && <span style={{ color: "red", marginTop: "10px" }}>
-                        <i className="fa-solid fa-triangle-exclamation fa-xl" style= {{color: "#ff0000"}}></i>             Passwords do not match!
-                    </span>}
+                        {error && <span style={{ color: "red", marginTop: "10px" }}>
+                            <i className="fa-solid fa-triangle-exclamation fa-xl" style={{ color: "#ff0000" }}></i>             Something went wrong!
+                        </span>}
+                        {passwordMatchError && <span style={{ color: "red", marginTop: "10px" }}>
+                            <i className="fa-solid fa-triangle-exclamation fa-xl" style={{ color: "#ff0000" }}></i>             Passwords do not match!
+                        </span>}
 
-                    <p>Already have an account? <Link to = "/login" className="link">Login here</Link></p>
+                        <p>Already have an account? <Link to="/login" className="link">Login here</Link></p>
 
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-        <Footer/>
+            <Footer />
         </>
     );
 }
