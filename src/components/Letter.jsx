@@ -15,6 +15,7 @@ const Letter = () => {
     const { currentUser } = useContext(AuthContext);
     const { data } = useContext(ChatContext);
 
+    // handle file upload
     const handleFileChange = (event) => {
         setImg(event.target.files[0]);
         setFileUploaded(true);
@@ -23,6 +24,7 @@ const Letter = () => {
     const handleSend = async () => {
 
         if (img) {
+            // send img
             const storageRef = ref(storage, uuidv4());
             const uploadTask = uploadBytesResumable(storageRef, img);
         
@@ -41,6 +43,7 @@ const Letter = () => {
                         text,
                         senderId: currentUser.uid,
                         date: Timestamp.now(),
+                        read: false,
                         img: downloadURL,
                       }),
                     });
@@ -48,15 +51,19 @@ const Letter = () => {
               }
             );
           } else {
+            // send text only
             await updateDoc(doc(db, "chats", data.chatId), {
               messages: arrayUnion({
                 id: uuidv4(),
                 text,
                 senderId: currentUser.uid,
+                read: false,
                 date: Timestamp.now(),
               }),
             });
           }
+          setText("");
+          setImg(null);
         };
 
     return (
@@ -67,7 +74,7 @@ const Letter = () => {
 
                 <div className="letter-header">
 
-                    <div className="upload-img&date">
+                    <div className="upload-imgdate">
 
                         <input type="file" id="file" style={{ display: "none" }} onChange={handleFileChange} />
                         <label htmlFor="file">
@@ -83,6 +90,12 @@ const Letter = () => {
                                 ></i>
                             )}
                         </label>
+
+                        <div className="date-container">
+                            <h1 className="current-date">Current Date: {new Date().toLocaleDateString()}</h1>
+                            <h1 className="arrival-date">Est. Arrival Date: {new Date().toLocaleDateString()}</h1>
+                        </div>
+
                     </div>
 
                     <div className="from-to-container">

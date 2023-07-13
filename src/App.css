@@ -305,10 +305,16 @@ header {
 
 .message-box {
   width: 100%;
-  min-height: 8rem;
+  min-height: 10rem;
+  padding: 1rem;
   background-color: var(--color-grey);
   border-radius: 1rem;
   border: 2px solid var(--color-black);
+}
+
+.unread {
+  background-color: var(--color-light-pink);
+  border: 5px solid var(--color-black);
 }
 
 /* SEARCH USER PAGE */
@@ -436,6 +442,17 @@ header {
   width: 100%;
   gap: 0.7rem;
   position: relative;
+}
+
+.upload-imgdate {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 0.7rem;
+  font-family: var(--font-family-default);
+  font-size: var(--fs-100);
+  font-weight: var(--fw-bold);
 }
 
 .send-letter-btn {
