@@ -13,13 +13,14 @@ const PopOutLetter = ({ message, setIsOpenPopup }) => {
           <h1>From Venice, California </h1>
           <h1>Sent on {message.date.toDate().toLocaleDateString()}</h1>
 
-          <div className="popout-letter-text">
+          <div className="popout-letter-body">
             <p>{message.text}</p>
+            <div className="popout-letter-img">
+            {message.img && <img src={message.img} alt="letter" className="attachedimg"/>}
+            </div>
           </div>
 
-          <div className="popout-letter-img">
-            {message.img && <img src={message.img} alt="letter" className="attachedimg"/>}
-          </div>
+         
         </div>
 
       </div>
